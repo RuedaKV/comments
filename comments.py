@@ -217,26 +217,11 @@ class fivethirtyeight:
 
 
 
-# my_nytimes_key = "8inUMyZeiS3REM7tN4KbE20dktQG1eEG"
-# a = nyt(my_nytimes_key)
+my_nytimes_key = "8inUMyZeiS3REM7tN4KbE20dktQG1eEG"
+a = nyt(my_nytimes_key)
 
 
 
-
-
-# FIVETHIRTYEIGhT:::
-#find the facebook link that starts like facebook.com/plugins/feedback
-#open that page
 b = fivethirtyeight()
-
-
-	# def fivethirtyeight_one_page(self, article_url):
-	# 	self.driver.get(article_url)
-	# 	self.driver.find_element_by_class_name("fte-expandable-icon").click()
-	# 	time.sleep(5)
-
-	# 	frame = self.driver.find_element_by_xpath('//*[@id="fb-comments"]/span/iframe').get_attribute("src")
-	# 	self.driver.get(frame)
-
 
 
