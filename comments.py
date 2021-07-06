@@ -22,13 +22,15 @@ import facebook
 
 class nyt:
 	def __init__(self, api_key):
+		"""Initialize empty comments list. Execute code to obtain and aggregate comments. Write comments into a Google Spreadsheet"""
+
 		self.api_key = api_key
 		self.comments_list = []
 
 		self.nytimes_write_to_gsheet()
 		
 	def nytimes_article_total_comments(self, article_url):
-		#obtain the total number of parent comments from a given article
+		"""Obtain the total number of parent comments from a given article"""
 
 		comment_bucket = "http://api.nytimes.com/svc/community/v3/user-content/recent.json?api-key=" + self.api_key + "&offset=0" + "&url=" + article_url
 		
@@ -45,7 +47,7 @@ class nyt:
 		return num_pages_comments
 
 	def nytimes_one_page(self, article_url, offset):
-		#obtain a single batch of comments from an article (25 comments)
+		"""Obtain a single batch of comments from a given article (25 comments)"""
 
 		try:
 			comment_bucket = "http://api.nytimes.com/svc/community/v3/user-content/recent.json?api-key=" + self.api_key + "&offset=" + str(offset) + "&url=" + article_url   
@@ -68,7 +70,7 @@ class nyt:
 				self.nytimes_one_page(article_url, offset)
 
 	def nytimes_get_comments(self, article_url):
-		#get all the comments from an article 
+		"""Return all batches of comments from an article"""
 
 		counter = 0
 		num_pages = self.nytimes_article_total_comments(article_url)
@@ -78,7 +80,7 @@ class nyt:
 			counter += 1
 
 	def nytimes_get_articles_from_spreadsheet(self):
-		#obtain nytimes articles from spreadsheet
+		"""Return a list of New York Times articles from the spreadsheet"""
 
 		nytimes_list = []
 
@@ -96,6 +98,8 @@ class nyt:
 		return nytimes_list
 
 	def nytimes_get_dataframe(self):
+		"""Obtain a Pandas dataframe containing all comments"""
+
 		nytimes_list = self.nytimes_get_articles_from_spreadsheet()
 
 		for article in nytimes_list:
@@ -105,6 +109,8 @@ class nyt:
 		return comments_df
 
 	def nytimes_sort_by_date(self, data):
+		"""Return a sorted datafrane"""
+
 		dataframe = data.sort_values(by = "Date")
 		dataframe.reset_index(inplace=True)
 		del dataframe["index"]
@@ -112,7 +118,8 @@ class nyt:
 		return dataframe
 
 	def nytimes_write_to_gsheet(self):
-		#access google sheet
+		"""Write the obtained data in a Google Spreadsheet"""
+
 		my_file_path = "/Users/rueda/Desktop/nytscraper-505631f90299.json"
 
 		gc = gspread.service_account(filename = my_file_path)
@@ -122,12 +129,12 @@ class nyt:
 		data = self.nytimes_get_dataframe()
 		sorted_data = self.nytimes_sort_by_date(data)
 
-		#write all the comments from the dataframe into the sheet
 		set_with_dataframe(worksheet, sorted_data)
 
 class fivethirtyeight:
 	def __init__(self, api_key):
-		#self.soup = BeautifulSoup("https://projects.fivethirtyeight.com/2020-election-forecast/", 'html.parser').contents()
+		"""Initialize empty comments list and webdriver. Execute code to obtain and aggregate comments. Write comments into a Google Spreadsheet"""
+
 		my_chomedriver_path = '/Users/rueda/Downloads/chromedriver'
 		self.driver = webdriver.Chrome(my_chomedriver_path)
 		self.comments_list = []
@@ -138,6 +145,7 @@ class fivethirtyeight:
 		self.driver.close()
 		
 	def fivethirtyeight_get_articles_from_spreadsheet(self):
+		"""Return a list of Fivethirtyeight articles from the spreadsheet"""
 
 		fivethirtyeight_list = []
 
@@ -153,6 +161,8 @@ class fivethirtyeight:
 		return fivethirtyeight_list
 
 	def fivethirtyeight_plugin_url(self, article_url):
+		"""Return the Facebook plug-in url for an article's comments section"""
+
 		self.driver.get(article_url)
 		self.driver.find_element_by_class_name("fte-expandable-icon").click()
 		time.sleep(5)
@@ -161,6 +171,8 @@ class fivethirtyeight:
 		return fivethirtyeight_plugin_url
 
 	def fivethirtyeight_facebook_request(self, article_url):
+		"""Return dictionary from a Facebook request"""
+
 		fivethirtyeight_plugin_url = self.fivethirtyeight_plugin_url(article_url)
 		comment_bucket = "https://graph.facebook.com/v2.6/?fields=og_object{comments}&id=" + article_url + "&access_token=" + self.api_key
 
@@ -172,6 +184,8 @@ class fivethirtyeight:
 		return facebook_response_dictionary
 
 	def fivethirtyeight_one_page(self, article_url):
+		"""Obtain the comments from a single Fivethirtyeight article"""
+
 		facebook_response_dictionary = self.fivethirtyeight_facebook_request(article_url)
 
 		for article in facebook_response_dictionary['og_object']['comments']['data']:
@@ -181,6 +195,7 @@ class fivethirtyeight:
 			self.comments_list.append(info)
 
 	def fivethirtyeight_get_dataframe(self):
+		"""Obtain a dataframe containing all comments"""
 		fivethirtyeight_list = self.fivethirtyeight_get_articles_from_spreadsheet()
 
 		for article in fivethirtyeight_list:
@@ -190,6 +205,8 @@ class fivethirtyeight:
 		return comments_df
 
 	def fivethirtyeight_sort_by_date(self, data):
+		"""Return a sorted dataframe"""
+
 		dataframe = data.sort_values(by = "Date")
 		dataframe.reset_index(inplace=True)
 		del dataframe["index"]
@@ -197,7 +214,8 @@ class fivethirtyeight:
 		return dataframe
 
 	def fivethirtyeight_write_to_gsheet(self):
-		#access google sheet
+		"""Write the obtained data in a Google Spreadsheet"""
+
 		my_file_path = "/Users/rueda/Desktop/nytscraper-505631f90299.json"
 
 		gc = gspread.service_account(filename = my_file_path)
@@ -207,11 +225,10 @@ class fivethirtyeight:
 		data = self.fivethirtyeight_get_dataframe()
 		sorted_data = self.fivethirtyeight_sort_by_date(data)
 
-		#write all the comments from the dataframe into the sheet
 		set_with_dataframe(worksheet, sorted_data)
 
 # my_nytimes_key = "8inUMyZeiS3REM7tN4KbE20dktQG1eEG"
 # a = nyt(my_nytimes_key)
 
-my_fivethirtyeight_key = "EAAoFCPRflZBABACnbImrBiOtvzO0zORRHOWxfVAgYehbKVDr3erMU17KRJ5BihOJrS8x2qwH58QyuirpweO923T6RNgt3Vp7m7iW6SZAXlZCo04tx7gY5oGiLUZBiJ84WwdmuoWxa7ZBYPrj9PjkfwJOTEUk3ZC3OUhuQebgoxnbqZAdV32Jh1TxXt0NZBFQR9JPugmZCWRsXxHNqwk7PAJHlEloRJUdUyO7nLBoRd0lgaMCX5YF8KRInnMGUkWaYEpUZD"
-b = fivethirtyeight(my_fivethirtyeight_key)
+# my_fivethirtyeight_key = "EAAoFCPRflZBABACnbImrBiOtvzO0zORRHOWxfVAgYehbKVDr3erMU17KRJ5BihOJrS8x2qwH58QyuirpweO923T6RNgt3Vp7m7iW6SZAXlZCo04tx7gY5oGiLUZBiJ84WwdmuoWxa7ZBYPrj9PjkfwJOTEUk3ZC3OUhuQebgoxnbqZAdV32Jh1TxXt0NZBFQR9JPugmZCWRsXxHNqwk7PAJHlEloRJUdUyO7nLBoRd0lgaMCX5YF8KRInnMGUkWaYEpUZD"
+# b = fivethirtyeight(my_fivethirtyeight_key)
