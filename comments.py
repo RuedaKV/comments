@@ -117,7 +117,7 @@ class nyt:
 		my_file_path = "/Users/rueda/Desktop/nytscraper-505631f90299.json"
 
 		gc = gspread.service_account(filename = my_file_path)
-		sh = gc.open('NYT Scraping')
+		sh = gc.open('Comments Scraper')
 		worksheet = sh.get_worksheet(0)
 
 		data = self.nytimes_get_dataframe()
@@ -135,7 +135,7 @@ class fivethirtyeight:
 		#self.soup = BeautifulSoup("https://projects.fivethirtyeight.com/2020-election-forecast/", 'html.parser').contents()
 		my_chomedriver_path = '/Users/rueda/Downloads/chromedriver'
 		self.driver = webdriver.Chrome(my_chomedriver_path)
-		self.my_token = "EAAoFCPRflZBABAJVZCKSGdQh1L0aZBMyvIt9Ep7iXSb9ZBmXQeYltlPZAjaZCUA7gZBsQWM4NIAZC7Yt2KlBj6bZCuhVYK2staEUC8NKRP8yZAjRl2pZB7RRJrLYtO7pm2Bv7XjM1O38nFm2HWRxcHs5ZBjybnfxXFyZCl1w3wHxbEoZCFR2GGH9opvv4ghj2ZBxxAM3eSnbEZBIp0icvYachszsFhOneo65DkbBKs4ZD"
+		self.my_token = "EAAoFCPRflZBABAB3dLf9EqcsEdugCDtmFIeeQNzOkygSkDSaPFbLsjko4RmyZBot7VYZAAaYYbPwmSU3ZCUf1XGnJrfJ0wEs7GdrNBfZAvWqqC9KQ4H4KPIiBNhrXgNdEiMuUczNLyxgFQKICT4lC035MZC5zfqjZCt6P33PSNGqUN4d3leeFfmuZARWFTIWJZBOsLjIbpZBga4E2oQXsIREpU"
 		self.comments_list = []
 
 		self.fivethirtyeight_write_to_gsheet()
@@ -206,7 +206,7 @@ class fivethirtyeight:
 		my_file_path = "/Users/rueda/Desktop/nytscraper-505631f90299.json"
 
 		gc = gspread.service_account(filename = my_file_path)
-		sh = gc.open('NYT Scraping')
+		sh = gc.open('Comments Scraper')
 		worksheet = sh.get_worksheet(1)
 
 		data = self.fivethirtyeight_get_dataframe()
@@ -217,11 +217,7 @@ class fivethirtyeight:
 
 
 
-my_nytimes_key = "8inUMyZeiS3REM7tN4KbE20dktQG1eEG"
-a = nyt(my_nytimes_key)
-
-
+# my_nytimes_key = "8inUMyZeiS3REM7tN4KbE20dktQG1eEG"
+# a = nyt(my_nytimes_key)
 
 b = fivethirtyeight()
-
-
