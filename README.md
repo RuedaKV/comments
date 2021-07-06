@@ -1,3 +1,3 @@
 # comments
 
-script that scrapes comments from several major news publications.
+Script that scrapes comments from several major news publications.
