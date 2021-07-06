@@ -18,7 +18,6 @@ from datetime import datetime
 from math import ceil
 import time
 
-#from bs4 import BeautifulSoup
 import facebook
 
 class nyt:
@@ -125,18 +124,14 @@ class nyt:
 
 		#write all the comments from the dataframe into the sheet
 		set_with_dataframe(worksheet, sorted_data)
-	
-#gather all comments from the nytimes	   
-# my_api_key = "8inUMyZeiS3REM7tN4KbE20dktQG1eEG"
-# a = nyt(my_api_key)
 
 class fivethirtyeight:
-	def __init__(self):
+	def __init__(self, api_key):
 		#self.soup = BeautifulSoup("https://projects.fivethirtyeight.com/2020-election-forecast/", 'html.parser').contents()
 		my_chomedriver_path = '/Users/rueda/Downloads/chromedriver'
 		self.driver = webdriver.Chrome(my_chomedriver_path)
-		self.my_token = "EAAoFCPRflZBABAB3dLf9EqcsEdugCDtmFIeeQNzOkygSkDSaPFbLsjko4RmyZBot7VYZAAaYYbPwmSU3ZCUf1XGnJrfJ0wEs7GdrNBfZAvWqqC9KQ4H4KPIiBNhrXgNdEiMuUczNLyxgFQKICT4lC035MZC5zfqjZCt6P33PSNGqUN4d3leeFfmuZARWFTIWJZBOsLjIbpZBga4E2oQXsIREpU"
 		self.comments_list = []
+		self.api_key = api_key
 
 		self.fivethirtyeight_write_to_gsheet()
 
@@ -167,7 +162,7 @@ class fivethirtyeight:
 
 	def fivethirtyeight_facebook_request(self, article_url):
 		fivethirtyeight_plugin_url = self.fivethirtyeight_plugin_url(article_url)
-		comment_bucket = "https://graph.facebook.com/v2.6/?fields=og_object{comments}&id=" + article_url + "&access_token=" + self.my_token
+		comment_bucket = "https://graph.facebook.com/v2.6/?fields=og_object{comments}&id=" + article_url + "&access_token=" + self.api_key
 
 		make_facebook_request = urllib.request.Request(comment_bucket)
 
@@ -215,9 +210,8 @@ class fivethirtyeight:
 		#write all the comments from the dataframe into the sheet
 		set_with_dataframe(worksheet, sorted_data)
 
-
-
 # my_nytimes_key = "8inUMyZeiS3REM7tN4KbE20dktQG1eEG"
 # a = nyt(my_nytimes_key)
 
-b = fivethirtyeight()
+my_fivethirtyeight_key = "EAAoFCPRflZBABACnbImrBiOtvzO0zORRHOWxfVAgYehbKVDr3erMU17KRJ5BihOJrS8x2qwH58QyuirpweO923T6RNgt3Vp7m7iW6SZAXlZCo04tx7gY5oGiLUZBiJ84WwdmuoWxa7ZBYPrj9PjkfwJOTEUk3ZC3OUhuQebgoxnbqZAdV32Jh1TxXt0NZBFQR9JPugmZCWRsXxHNqwk7PAJHlEloRJUdUyO7nLBoRd0lgaMCX5YF8KRInnMGUkWaYEpUZD"
+b = fivethirtyeight(my_fivethirtyeight_key)
