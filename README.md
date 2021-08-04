@@ -2,7 +2,14 @@
 
 A collection of scripts that scrape and format comments from several major news publications.
 
-## New York Times Scraper Requirements
+##Getting Started
+
+### Dependencies 
+* [selenium]()
+* [pandas]()
+* [gspread]()
+
+### New York Times Scraper Requirements
 In order to use the scraper to obtain any user comments, you must have a New York Times [Developer API key]((https://developer.nytimes.com/apis)).
 
 ### FiveThirtyEight Scraper Requirements
