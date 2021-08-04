@@ -1,4 +1,8 @@
 # Comments Scraper
+[![Email][email-shield]][email-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+[![License][license-shield]][license-url]
+
 
 A collection of scripts that scrape and format comments from several major news publications.
 
@@ -81,3 +85,13 @@ You can write a dataframe of comments into a Google Spreadsheet with the ```writ
 
 NYT_Scraper.write_to_gsheet(dataframe, gsheet_path, gsheet_name, sheet_number)
 ```
+
+
+[email-shield]: https://img.shields.io/badge/EMAIL-rueda.kv%40gmail.com%20-brightgreen?style=for-the-badge&colorB=critical
+[email-url]: rueda.kv@gmail.com
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=critical
+[linkedin-url]: https://linkedin.com/in/RuedaKV
+
+[license-shield]: https://img.shields.io/github/license/RuedaKV/comments?style=for-the-badge&colorB=critical
+[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
