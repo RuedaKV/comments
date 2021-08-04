@@ -15,7 +15,7 @@ Install the following dependencies in your terminal.
 
 Use the command 
 ```
-pip install [insert]
+pip install
 ```
 
 
