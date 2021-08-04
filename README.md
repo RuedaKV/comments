@@ -4,10 +4,20 @@ A collection of scripts that scrape and format comments from several major news 
 
 ## Getting Started
 
-### Dependencies 
+### Dependencies
+Install the following dependencies in your terminal.
+
 * [selenium]()
 * [pandas]()
 * [gspread]()
+* [gspread_dataframe]()
+* [datetime]()
+
+Use the command 
+```
+pip install [insert]
+```
+
 
 ### New York Times Scraper Requirements
 In order to use the scraper to obtain any user comments, you must have a New York Times [Developer API key]((https://developer.nytimes.com/apis)).
