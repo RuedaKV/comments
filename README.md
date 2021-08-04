@@ -51,7 +51,7 @@ FiveThirtyEight_Scraper = fivethirtyeight(my_token, my_chomedriver_path)
 You can retrieve a list of comments from a single article using the article URL.
 ```python
 WaPo_Scraper.get_article_comments("https://www.washingtonpost.com/politics/2021/04/13/risk-reward-calculus-johnson-johnson-vaccine-visualized/")
-NYT_Scraper.get_article_comments("https://www.nytimes.com/2015/04/12/opinion/sunday/david-brooks-the-moral-bucket-list.html)
+NYT_Scraper.get_article_comments("https://www.nytimes.com/2015/04/12/opinion/sunday/david-brooks-the-moral-bucket-list.html")
 FiveThirtyEight_Scraper.get_article_comments("https://projects.fivethirtyeight.com/2020-election-forecast/")
 ```
 
