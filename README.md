@@ -48,7 +48,7 @@ NYT_Scraper = nyt(my_api_key)
 FiveThirtyEight_Scraper = fivethirtyeight(my_token, my_chomedriver_path)
 ```
 
-You can retrieve a list of comments from a single article using the article URL with the ```w``` method.
+You can retrieve a list of comments from a single article using the article URL with the ```python w``` method.
 ```python
 WaPo_Scraper.get_article_comments("https://www.washingtonpost.com/politics/2021/04/13/risk-reward-calculus-johnson-johnson-vaccine-visualized/")
 NYT_Scraper.get_article_comments("https://www.nytimes.com/2015/04/12/opinion/sunday/david-brooks-the-moral-bucket-list.html")
