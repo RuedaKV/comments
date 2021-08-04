@@ -2,6 +2,7 @@
 [![Email][email-shield]][email-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![License][license-shield]][license-url]
+[![License][python-shield]][python-url]
 
 
 A collection of scripts that scrape and format comments from several major news publications.
