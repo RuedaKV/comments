@@ -1,4 +1,4 @@
-# Comments Scraper
+# Journalism Scrapers
 [![Email][email-shield]][email-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![License][license-shield]][license-url]
