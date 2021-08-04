@@ -117,14 +117,3 @@ class fivethirtyeight:
 		worksheet = sh.get_worksheet(sheet_number)
 
 		set_with_dataframe(worksheet, dataframe)
-
-my_key = "EAAoFCPRflZBABALlMKhTCwTZCE0F35inHutVji1fBn8vYG5YgIOT7sD4xYfbvHOgxRAbBfPjtle65NgsZAFWkPtP3O0nF5aVvIEtz6qoX2DqaqFpr1luBmmvOmeS6Uk7zwtHYO4N7OIS0qZBurrhxBHlNjUIriliZAFyAADJWZCHOzBGZAbNd2FbmiDII0Pq5bxSKIerNSCp89LQFNv2On6h1bYeLra2jVSvWyfJWMJMFh43UQacZCDYd8KbKg0mxb0ZD"
-d= fivethirtyeight(my_key, '/Users/rueda/Downloads/chromedriver')
-
-articles = d.get_articles_from_spreadsheet("https://docs.google.com/spreadsheets/d/1pHTwxtRObCdW6ObcZcn-vwKYO2ii2tdaPhjXAv-P0Sg/edit#gid=0", 0)
-comments = d.get_comments_from_multiple_articles(articles)
-print(len(comments))
-
-
-df = d.get_dataframe(comments)
-d.write_to_gsheet(df, "/Users/rueda/Desktop/nytscraper-505631f90299.json", "Comments Scraper", 5)
