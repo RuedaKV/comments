@@ -48,8 +48,8 @@ FiveThirtyEight_Scraper.get_comments_from_multiple_articles(list_of_article_urls
 You can retrieve a list of articles from a Google Spreadsheet.
 ```
 WaPo_Scraper.get_articles_from_spreadsheet(spreadsheet_url, sheet_number)
-NYT_Scraper.get_articles_from_spreadsheet(self, spreadsheet_url, sheet_number)
-FiveThirtyEight_Scraper.get_articles_from_spreadsheet(self, spreadsheet_url, sheet_number)
+NYT_Scraper.get_articles_from_spreadsheet(spreadsheet_url, sheet_number)
+FiveThirtyEight_Scraper.get_articles_from_spreadsheet(spreadsheet_url, sheet_number)
 ```
 
 You can convert a list of comments into a Pandas dataframe.
