@@ -45,21 +45,21 @@ NYT_Scraper.get_comments_from_multiple_articles(list_of_article_urls)
 FiveThirtyEight_Scraper.get_comments_from_multiple_articles(list_of_article_urls)
 ```
 
-You can retrieve a list of articles from a Google Spreadsheet
+You can retrieve a list of articles from a Google Spreadsheet.
 ```
 WaPo_Scraper.get_articles_from_spreadsheet(spreadsheet_url, sheet_number)
 NYT_Scraper.get_articles_from_spreadsheet(self, spreadsheet_url, sheet_number)
 FiveThirtyEight_Scraper.get_articles_from_spreadsheet(self, spreadsheet_url, sheet_number)
 ```
 
-You can convert a list of comments into a Pandas dataframe
+You can convert a list of comments into a Pandas dataframe.
 ```
 WaPo_Scraper.get_dataframe(comments_list)
 NYT_Scraper.get_dataframe(comments_list)
 FiveThirtyEight_Scraper.get_dataframe(comments_list)
 ```
 
-You can write a dataframe of comments into a Google Spreadsheet
+You can write a dataframe of comments into a Google Spreadsheet.
 ```
 WaPo_Scraper.write_to_gsheet(dataframe, gsheet_path, gsheet_name, sheet_number)
 NYT_Scraper.write_to_gsheet(dataframe, gsheet_path, gsheet_name, sheet_number)
