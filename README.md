@@ -95,7 +95,7 @@ NYT_Scraper.write_to_gsheet(dataframe, gsheet_path, gsheet_name, sheet_number)
 [linkedin-url]: https://linkedin.com/in/RuedaKV
 
 [license-shield]: https://img.shields.io/github/license/RuedaKV/comments?style=for-the-badge&colorB=critical
-[license-url]: https://github.com/RuedaKV/comments/blob/master/LICENSE.txt
+[license-url]: https://github.com/RuedaKV/comments/blob/main/LICENSE
 
 [python-shield]: https://img.shields.io/badge/-python-black.svg?style=for-the-badge&logo=python&colorB=critical
 [python-url]: https://www.python.org/downloads/release/python-388/
