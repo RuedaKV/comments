@@ -33,14 +33,14 @@ In order to use the scraper to obtain any user comments, you must have [Selenium
 ### Additional Requirements
 In order to use the scrapers' **write_to_gsheet** methods, you must have service account and OAuth2 credentials from [Google API Console.](https://console.cloud.google.com/apis/dashboard)
 
-### Limitations
+## Limitations
 The New York Times scraper obtains a comment's Article URL, Parent ID, Comment ID, User Display Name, Comment Body, Upload Date, Number of Likes, Number of Replies, and Editor's Selection.
 
 The Washington Post scraper obtains a comment's Article URL, User Display Name, Comment Body, Upload Date, and Number of Likes.
 
 The FiveThirtyEight scraper obtains a comment's Article URL, Comment Body, and Upload Date.
 
-### Code Walkthrough
+## Code Walkthrough
 Begin by initializing a new instance of your desired scraper.
 ```
 WaPo_Scraper = washingtonpost(my_chromedriver_path)
