@@ -56,7 +56,7 @@ FiveThirtyEight_Scraper.get_article_comments("https://projects.fivethirtyeight.c
 ```
 
 You can retrieve a list of comments from a list of articles.
-```
+```python
 WaPo_Scraper.get_comments_from_multiple_articles(list_of_article_urls)
 NYT_Scraper.get_comments_from_multiple_articles(list_of_article_urls)
 FiveThirtyEight_Scraper.get_comments_from_multiple_articles(list_of_article_urls)
