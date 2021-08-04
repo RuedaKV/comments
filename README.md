@@ -3,10 +3,10 @@
 A collection of scripts that scrape and format comments from several major news publications.
 
 ### New York Times Scraper Requirements
-In order to use the scraper to obtain any user comments, you must have a New York Times Developer API key. You may register for an API key [here.](https://developer.nytimes.com/apis)
+In order to use the scraper to obtain any user comments, you must have a New York Times [Developer API key]((https://developer.nytimes.com/apis)).
 
 ### FiveThirtyEight Scraper Requirements
-In order to use the scraper to obtain any user comments, you must have a Facebook Developers User Accesss Token. You can obtain one [here.](developers.facebook.com)
+In order to use the scraper to obtain any user comments, you must have a Facebook Developers [User Accesss Token.](developers.facebook.com)
 
 In addition, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriver](https://chromedriver.chromium.org/) installed.
 
