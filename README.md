@@ -31,7 +31,7 @@ In addition, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriv
 In order to use the scraper to obtain any user comments, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriver](https://chromedriver.chromium.org/) installed.
 
 ### Additional Requirements
-In order to use the scrapers' **write_to_gsheet** methods, you must have service account and OAuth2 credentials from [Google API Console.](https://console.cloud.google.com/apis/dashboard)
+In order to use the scrapers' **write_to_gsheet** methods, you must have service account and OAuth2 credentials from the [Google API Console.](https://console.cloud.google.com/apis/dashboard)
 
 ## Limitations
 The New York Times scraper obtains a comment's Article URL, Parent ID, Comment ID, User Display Name, Comment Body, Upload Date, Number of Likes, Number of Replies, and Editor's Selection.
