@@ -28,9 +28,9 @@ pip install
 In order to use the scraper to obtain any user comments, you must have a New York Times [Developer API key.](https://developer.nytimes.com/apis)
 
 ### FiveThirtyEight Scraper Requirements
-In order to use the scraper to obtain any user comments, you must have a Facebook Developers [User Accesss Token.](https://developers.facebook.com/)
+<!-- In order to use the scraper to obtain any user comments, you must have a Facebook Developers [User Accesss Token.](https://developers.facebook.com/) -->
 
-In addition, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriver](https://chromedriver.chromium.org/) installed.
+In order to use the scraper to obtain any user comments, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriver](https://chromedriver.chromium.org/) installed.
 
 ### Washington Post Scraper Requirements
 In order to use the scraper to obtain any user comments, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriver](https://chromedriver.chromium.org/) installed.
@@ -43,7 +43,7 @@ The New York Times scraper obtains a comment's Article URL, Parent ID, Comment I
 
 The Washington Post scraper obtains a comment's Article URL, User Display Name, Comment Body, Upload Date, and Number of Likes.
 
-The FiveThirtyEight scraper obtains a comment's Article URL, Comment Body, and Upload Date.
+The FiveThirtyEight scraper obtains a comment's Article URL, User Display Name, Comment Body, and Upload Date.
 
 ## Code Walkthrough
 Begin by initializing a new instance of your desired scraper.
