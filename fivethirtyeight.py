@@ -3,8 +3,15 @@ import urllib
 import json
 
 #selenium web scraping
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+
 
 #data collection
 import pandas as pd
@@ -13,21 +20,19 @@ import pandas as pd
 import gspread
 from gspread_dataframe import set_with_dataframe, get_as_dataframe
 
-#misc.
+#timing
 from datetime import datetime
 from math import ceil
 import time
 
-import facebook
-
-import pickle
-
 class fivethirtyeight:
-	def __init__(self, api_key, chomedriver_path):
+	def __init__(self, chomedriver_path):
 		"""Initialize empty comments list and webdriver. Execute code to obtain and aggregate comments. Write comments into a Google Spreadsheet"""
 
-		self.driver = webdriver.Chrome(chomedriver_path)
-		self.api_key = api_key
+		self.driver = webdriver.Chrome(ChromeDriverManager().install())
+
+
+		#self.driver = webdriver.Chrome(chomedriver_path)
 		
 	def get_articles_from_spreadsheet(self, spreadsheet_url, sheet_number):
 		"""Returns a list of Fivethirtyeight articles from the spreadsheet"""
@@ -35,7 +40,7 @@ class fivethirtyeight:
 		fivethirtyeight_list = []
 
 		df = pd.read_html(spreadsheet_url, 
-		                  header=1)[sheet_number]
+		                  header=1)[0]
 		df.drop(columns='1', inplace=True)
 
 		for index, row in df.iterrows():
@@ -56,30 +61,63 @@ class fivethirtyeight:
 
 		return fivethirtyeight_plugin_url
 
-	def make_facebook_request(self, article_url):
-		"""Returns a dictionary from a Facebook request"""
 
-		fivethirtyeight_plugin_url = self.get_plugin_url(article_url)
-		comment_bucket = "https://graph.facebook.com/v2.6/?fields=og_object{comments}&id=" + article_url + "&access_token=" + self.api_key
-
-		make_facebook_request = urllib.request.Request(comment_bucket)
-
-		facebook_response = urllib.request.urlopen(make_facebook_request, timeout=100).read()
-		facebook_response_dictionary = json.loads(facebook_response)
-
-		return facebook_response_dictionary
-
-	def one_page(self, article_url):
+	def get_article_comments(self, article_url):
 		"""Returns a list of comments from a single Fivethirtyeight article"""
+
+		time.sleep(5)
 
 		comments_list = []
 
-		facebook_response_dictionary = self.make_facebook_request(article_url)
+		plugin = self.get_plugin_url(article_url)
 
-		for article in facebook_response_dictionary['og_object']['comments']['data']:
-			created_time = str(article['created_time'])[:10]
 
-			info = [article_url, article['message'], created_time]
+		self.driver.get(plugin)
+		#self.driver.find_element_by_class_name("fte-expandable-icon").click()
+
+		time.sleep(5)
+
+		while True:
+			try:
+				self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+				self.driver.find_element_by_class_name("_1gl3").click()
+				#time.sleep(10)
+				WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, "._1gl3")))
+			except:
+				break
+
+		self.driver.execute_script("window.scrollTo(0, 0);")
+
+		comment_text_element = list(self.driver.find_elements_by_class_name("_5mdd"))
+
+		comment_text_list = []
+		for comment in comment_text_element:
+			comment_text_list.append(comment.get_attribute("innerText"))
+
+
+		username_element = list(self.driver.find_elements_by_class_name("UFICommentActorName"))
+
+		username_list = []
+		for username in username_element:
+			username_list.append(username.get_attribute("innerText"))
+
+		comment_timestamp = self.driver.find_elements_by_class_name("UFISutroCommentTimestamp")
+
+		datetime_list = []
+
+		for timestamp in comment_timestamp:
+			comment_datetime = int(timestamp.get_attribute("data-utime"))
+			comment_time = datetime.utcfromtimestamp(comment_datetime).strftime('%Y-%m-%d')
+			datetime_list.append(comment_time)
+
+		zipped_items = zip(username_list, comment_text_list, datetime_list)
+		zipped_list = list(zipped_items)
+
+
+		url_list = [article_url]
+
+		for comment in zipped_list:
+			info = url_list + list(comment)
 			comments_list.append(info)
 
 		return comments_list
@@ -90,14 +128,18 @@ class fivethirtyeight:
 		comments_list = []
 
 		for article in articles_list:
-			comments_list += self.one_page(article)
+			try:
+				article_comments = self.get_article_comments(article)
+				comments_list += article_comments
+			except:
+				continue
 
 		return comments_list
 
 	def get_dataframe(self, comments_list):
 		"""Converts a list of comments into a Pandas dataframe"""
 
-		comments_df = pd.DataFrame(comments_list, columns = ['URL', 'Comment Body', 'Date'])
+		comments_df = pd.DataFrame(comments_list, columns = ['URL', 'Display Name', 'Comment Body', 'Date'])
 		return comments_df
 
 	def sort_by_date(self, data):
