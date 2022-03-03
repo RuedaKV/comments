@@ -50,7 +50,7 @@ Begin by initializing a new instance of your desired scraper.
 ```python
 WaPo_Scraper = washingtonpost(my_chromedriver_path)
 NYT_Scraper = nyt(my_api_key)
-FiveThirtyEight_Scraper = fivethirtyeight(my_token, my_chomedriver_path)
+FiveThirtyEight_Scraper = fivethirtyeight(my_chomedriver_path)
 ```
 
 You can retrieve a list of comments from a single article using the article URL with the ```get_article_comments()``` method.
