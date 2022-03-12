@@ -10,8 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-
-
+from selenium.webdriver.chrome.options import Options
 
 #data collection
 import pandas as pd
@@ -25,14 +24,17 @@ from datetime import datetime
 from math import ceil
 import time
 
+options = Options()
+options.headless = True
+
+
+
 class fivethirtyeight:
-	def __init__(self, chomedriver_path):
-		"""Initialize empty comments list and webdriver. Execute code to obtain and aggregate comments. Write comments into a Google Spreadsheet"""
+	def __init__(self):
+		"""Initialize empty comments list and webdriver."""
 
-		self.driver = webdriver.Chrome(ChromeDriverManager().install())
+		self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
-
-		#self.driver = webdriver.Chrome(chomedriver_path)
 		
 	def get_articles_from_spreadsheet(self, spreadsheet_url, sheet_number):
 		"""Returns a list of Fivethirtyeight articles from the spreadsheet"""
@@ -54,10 +56,10 @@ class fivethirtyeight:
 		"""Returns the Facebook plug-in url for an article's comments section"""
 
 		self.driver.get(article_url)
-		self.driver.find_element_by_class_name("fte-expandable-icon").click()
+		self.driver.find_element(by=By.CLASS_NAME, value = "fte-expandable-icon").click()
 		time.sleep(5)
 
-		fivethirtyeight_plugin_url = self.driver.find_element_by_xpath('//*[@id="fb-comments"]/span/iframe').get_attribute("src")
+		fivethirtyeight_plugin_url = self.driver.find_element(by=By.XPATH, value = '//*[@id="entry-comments"]/div/div/span/iframe').get_attribute("src")
 
 		return fivethirtyeight_plugin_url
 
@@ -73,14 +75,13 @@ class fivethirtyeight:
 
 
 		self.driver.get(plugin)
-		#self.driver.find_element_by_class_name("fte-expandable-icon").click()
 
 		time.sleep(5)
 
 		while True:
 			try:
 				self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-				self.driver.find_element_by_class_name("_1gl3").click()
+				self.driver.find_element(by=By.CLASS_NAME, value = "_1gl3").click()
 				#time.sleep(10)
 				WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, "._1gl3")))
 			except:
@@ -88,20 +89,20 @@ class fivethirtyeight:
 
 		self.driver.execute_script("window.scrollTo(0, 0);")
 
-		comment_text_element = list(self.driver.find_elements_by_class_name("_5mdd"))
+		comment_text_element = list(self.driver.find_elements(by=By.CLASS_NAME, value = "_5mdd"))
 
 		comment_text_list = []
 		for comment in comment_text_element:
 			comment_text_list.append(comment.get_attribute("innerText"))
 
 
-		username_element = list(self.driver.find_elements_by_class_name("UFICommentActorName"))
+		username_element = list(self.driver.find_elements(by=By.CLASS_NAME, value = "UFICommentActorName"))
 
 		username_list = []
 		for username in username_element:
 			username_list.append(username.get_attribute("innerText"))
 
-		comment_timestamp = self.driver.find_elements_by_class_name("UFISutroCommentTimestamp")
+		comment_timestamp = self.driver.find_elements(by=By.CLASS_NAME, value ="UFISutroCommentTimestamp")
 
 		datetime_list = []
 
@@ -159,4 +160,3 @@ class fivethirtyeight:
 		worksheet = sh.get_worksheet(sheet_number)
 
 		set_with_dataframe(worksheet, dataframe)
-
