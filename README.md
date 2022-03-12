@@ -30,10 +30,10 @@ In order to use the scraper to obtain any user comments, you must have a New Yor
 ### FiveThirtyEight Scraper Requirements
 <!-- In order to use the scraper to obtain any user comments, you must have a Facebook Developers [User Accesss Token.](https://developers.facebook.com/) -->
 
-In order to use the scraper to obtain any user comments, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriver](https://chromedriver.chromium.org/) installed.
+In order to use the scraper to obtain any user comments, you must have [Selenium](https://www.selenium.dev/) installed.
 
 ### Washington Post Scraper Requirements
-In order to use the scraper to obtain any user comments, you must have [Selenium](https://www.selenium.dev/) and [ChromeDriver](https://chromedriver.chromium.org/) installed.
+In order to use the scraper to obtain any user comments, you must have [Selenium](https://www.selenium.dev/) installed.
 
 ### Additional Requirements
 In order to use the scrapers' ```write_to_gsheet()``` methods, you must have service account and OAuth2 credentials from the [Google API Console.](https://console.cloud.google.com/apis/dashboard)
